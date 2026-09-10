@@ -9,6 +9,7 @@
     "dev": "concurrently -n \"api,web\" -c \"blue,green\" \"npm run dev:api\" \"npm run dev:web\"",
     "dev:api": "npm --workspace apps/api run dev",
     "dev:web": "npm --workspace apps/web run dev",
+    "postinstall": "npm --workspace apps/api run prisma:generate",
     "build": "npm --workspace apps/api run build && npm --workspace apps/web run build",
     "test": "npm --workspace apps/api run test && npm --workspace apps/web run test",
     "test:api": "npm --workspace apps/api run test",

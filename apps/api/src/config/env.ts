@@ -7,7 +7,7 @@ dotenv.config({ path: path.resolve(process.cwd(), '../../.env') });
 dotenv.config();
 
 const envSchema = z.object({
-  DATABASE_URL: z.string().url(),
+  DATABASE_URL: z.string().default('postgresql://postgres:postgres@localhost:5432/orion?schema=public'),
   PORT: z.coerce.number().default(3333),
   WEB_URL: z.string().default('http://localhost:5173'),
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
