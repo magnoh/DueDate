@@ -36,8 +36,19 @@ if (!process.env.VERCEL) {
 
 // Handler para Vercel Serverless Function
 export default async function handler(req: any, res: any) {
-  if (!isReady) {
-    await createNestServer();
+  try {
+    if (!isReady) {
+      await createNestServer();
+    }
+    return server(req, res);
+  } catch (err: any) {
+    console.error('❌ Erro ao inicializar NestJS na Vercel:', err);
+    if (!res.headersSent) {
+      return res.status(500).json({
+        statusCode: 500,
+        error: 'Database or Server Initialization Error',
+        message: err?.message || 'Erro ao inicializar aplicação na Vercel. Verifique a DATABASE_URL.',
+      });
+    }
   }
-  return server(req, res);
 }
