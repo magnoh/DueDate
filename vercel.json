@@ -4,7 +4,7 @@
   "outputDirectory": "apps/web/dist",
   "framework": "vite",
   "functions": {
-    "api/index.ts": {
+    "api/*.ts": {
       "includeFiles": "node_modules/.prisma/**"
     }
   },

@@ -1,48 +1,49 @@
 import 'reflect-metadata';
-import { NestFactory } from '@nestjs/core';
-import { ExpressAdapter } from '@nestjs/platform-express';
-import express, { Express, Request, Response } from 'express';
-import { AppModule } from '../apps/api/src/app.module.js';
-import { AllExceptionsFilter } from '../apps/api/src/common/filters/http-exception.filter.js';
+import { createNestApp } from '../apps/api/src/app.factory.js';
 
-const server: Express = express();
-let isReady = false;
-let initError: Error | null = null;
+let cachedServer: any = null;
+let initPromise: Promise<any> | null = null;
 
-async function bootstrap() {
-  try {
-    const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
-    app.enableCors({
-      origin: true,
-      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-      credentials: true,
-    });
-    app.useGlobalFilters(new AllExceptionsFilter());
-    await app.init();
-    isReady = true;
-  } catch (err: any) {
-    console.error('❌ Erro no bootstrap do NestJS na Vercel:', err);
-    initError = err;
-    throw err;
+async function getServer() {
+  if (cachedServer) {
+    return cachedServer;
   }
+  if (!initPromise) {
+    initPromise = createNestApp().then(({ server }) => {
+      cachedServer = server;
+      return server;
+    });
+  }
+  return initPromise;
 }
 
-export default async function handler(req: Request, res: Response) {
+export default async function handler(req: any, res: any) {
+  // Diagnóstico leve
+  if (req.url === '/api/ping' || req.url === '/ping') {
+    return res.status(200).json({
+      status: 'ok',
+      hasDbUrl: !!process.env.DATABASE_URL,
+      time: new Date().toISOString(),
+    });
+  }
+
+  // Garante que o prefixo /api esteja presente para casar com os controllers NestJS
+  if (req.url && !req.url.startsWith('/api') && !req.url.startsWith('/health')) {
+    req.url = '/api' + (req.url.startsWith('/') ? req.url : '/' + req.url);
+  }
+
   try {
-    if (!isReady) {
-      if (initError) {
-        throw initError;
-      }
-      await bootstrap();
-    }
+    const server = await getServer();
     return server(req, res);
   } catch (err: any) {
-    console.error('❌ Erro na execução da Serverless Function:', err);
-    return res.status(500).json({
-      statusCode: 500,
-      error: 'Serverless Function Error',
-      message: err?.message || 'Erro interno na função serverless',
-      stack: err?.stack,
-    });
+    console.error('❌ Erro no handler serverless:', err);
+    if (!res.headersSent) {
+      return res.status(500).json({
+        statusCode: 500,
+        error: 'Serverless Handler Error',
+        message: err?.message || 'Erro interno na função serverless',
+        stack: err?.stack,
+      });
+    }
   }
 }
