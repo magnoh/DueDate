@@ -1,0 +1,676 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #F3F4F1;
+  --surface: #FFFFFF;
+  --border: #DDDEDA;
+  --border-strong: #C6C8C1;
+  --text: #23261F;
+  --text-secondary: #62655C;
+  --text-muted: #9A9C93;
+
+  --blue-bg: #E6F1FB;
+  --blue-text: #0C447C;
+  --blue-border: #85B7EB;
+
+  --amber-bg: #FAEEDA;
+  --amber-text: #854F0B;
+  --amber-border: #EF9F27;
+
+  --green-bg: #EAF3DE;
+  --green-text: #27500A;
+  --green-border: #97C459;
+
+  --red-bg: #FCEBEB;
+  --red-text: #791F1F;
+  --red-border: #F09595;
+
+  --radius: 8px;
+}
+
+@layer base {
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, "Segoe UI", Inter, Arial, sans-serif;
+    margin: 0;
+    padding: 32px 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* Mockup Layout and Components */
+.app-container {
+  max-width: 980px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 0.5px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text);
+}
+
+.brand .mark {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: #23261F;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--blue-bg);
+  color: var(--blue-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 20px 0 20px;
+}
+
+.tab {
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 0.5px solid transparent;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.15s ease;
+  background: transparent;
+}
+
+.tab:hover {
+  color: var(--text);
+}
+
+.tab.active {
+  background: #F1F2EE;
+  color: var(--text);
+  font-weight: 600;
+  border-color: var(--border);
+}
+
+.tab.danger {
+  color: var(--red-text);
+}
+
+.tab.danger.active {
+  background: var(--red-bg);
+  border-color: var(--red-border);
+}
+
+.btn {
+  font-size: 13px;
+  padding: 7px 14px;
+  border-radius: 6px;
+  border: 0.5px solid var(--border-strong);
+  background: #fff;
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.btn:hover {
+  background: #f9f9f8;
+}
+
+.btn.primary {
+  background: #23261F;
+  color: #fff;
+  border-color: #23261F;
+}
+
+.btn.primary:hover {
+  background: #363a30;
+}
+
+.filters-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  flex-wrap: wrap;
+}
+
+.select-custom {
+  font-size: 13px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 0.5px solid var(--border-strong);
+  background: #fff;
+  color: var(--text);
+  outline: none;
+}
+
+.chip {
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.chip.blue {
+  background: var(--blue-bg);
+  color: var(--blue-text);
+}
+
+.chip.blue.active {
+  border-color: var(--blue-border);
+  box-shadow: 0 0 0 1px var(--blue-border);
+}
+
+.chip.amber {
+  background: var(--amber-bg);
+  color: var(--amber-text);
+}
+
+.chip.amber.active {
+  border-color: var(--amber-border);
+  box-shadow: 0 0 0 1px var(--amber-border);
+}
+
+.chip.green {
+  background: var(--green-bg);
+  color: var(--green-text);
+}
+
+.chip.green.active {
+  border-color: var(--green-border);
+  box-shadow: 0 0 0 1px var(--green-border);
+}
+
+.table-wrap {
+  margin: 4px 20px 20px 20px;
+  border: 0.5px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.mockup-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.mockup-table thead th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--text-secondary);
+  font-size: 12px;
+  padding: 9px 14px;
+  background: #FAFAF8;
+  border-bottom: 0.5px solid var(--border);
+}
+
+.mockup-table tbody td {
+  padding: 11px 14px;
+  border-bottom: 0.5px solid var(--border);
+  vertical-align: middle;
+}
+
+.mockup-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.mockup-table tbody tr.overdue {
+  background: var(--red-bg);
+}
+
+.overdue-date {
+  color: var(--red-text);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.status-select {
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: none;
+  font-weight: 500;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.status-select.aberto {
+  background: var(--blue-bg);
+  color: var(--blue-text);
+}
+
+.status-select.andamento {
+  background: var(--amber-bg);
+  color: var(--amber-text);
+}
+
+.status-select.concluido {
+  background: var(--green-bg);
+  color: var(--green-text);
+}
+
+.footer-note {
+  padding: 0 20px 20px 20px;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: -8px;
+}
+
+/* Drawer overlay */
+.overlay-drawer {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 24px;
+  z-index: 999;
+}
+
+.drawer {
+  width: 340px;
+  background: #fff;
+  border-radius: 12px;
+  border: 0.5px solid var(--border);
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.drawer h3 {
+  margin: 0 0 16px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.field {
+  margin-bottom: 14px;
+}
+
+.field label {
+  display: block;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 5px;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  font-size: 13px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 0.5px solid var(--border-strong);
+  outline: none;
+  background: #fff;
+  color: var(--text);
+  box-sizing: border-box;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--text);
+}
+
+.status-options {
+  display: flex;
+  gap: 6px;
+}
+
+.status-options .opt {
+  flex: 1;
+  text-align: center;
+  font-size: 12px;
+  padding: 6px 0;
+  border-radius: 6px;
+  border: 0.5px solid var(--border-strong);
+  color: var(--text-secondary);
+  cursor: pointer;
+  user-select: none;
+  background: #fff;
+  transition: all 0.15s ease;
+}
+
+.status-options .opt.selected {
+  background: var(--blue-bg);
+  color: var(--blue-text);
+  border-color: var(--blue-border);
+  font-weight: 600;
+}
+
+.drawer-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+/* Topbar Navigation */
+.topbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #F1F2EE;
+  padding: 3px;
+  border-radius: 8px;
+}
+
+.topbar-nav-item {
+  font-size: 13px;
+  padding: 5px 12px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.topbar-nav-item:hover {
+  color: var(--text);
+}
+
+.topbar-nav-item.active {
+  background: #fff;
+  color: var(--text);
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+
+/* View Toggle (Table / Kanban) */
+.view-toggle {
+  display: flex;
+  align-items: center;
+  background: #F1F2EE;
+  border-radius: 6px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.view-toggle-btn {
+  padding: 5px 9px;
+  border-radius: 4px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.view-toggle-btn:hover {
+  color: var(--text);
+}
+
+.view-toggle-btn.active {
+  background: #fff;
+  color: var(--text);
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+
+/* Kanban Board & Cards with Drag and Drop */
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 18px 20px 24px;
+  background: #FAFBF9;
+  min-height: 480px;
+}
+
+@media (max-width: 768px) {
+  .kanban-board {
+    grid-template-columns: 1fr;
+  }
+}
+
+.kanban-column {
+  background: #F3F4F1;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  min-height: 450px;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.kanban-column.drag-over {
+  background: #EBF3FC;
+  border-color: var(--blue-border);
+}
+
+.kanban-column-header {
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+
+.kanban-column-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.kanban-column-badge {
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--text-secondary);
+  border: 0.5px solid var(--border);
+  font-weight: 600;
+}
+
+.kanban-column-cards {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  overflow-y: auto;
+  max-height: 540px;
+}
+
+.kanban-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  cursor: grab;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.kanban-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
+.kanban-card.is-dragging {
+  opacity: 0.35;
+  cursor: grabbing;
+  border-style: dashed;
+}
+
+.kanban-card-desc {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.kanban-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-secondary);
+  padding-top: 8px;
+  border-top: 0.5px solid #F1F2EE;
+  gap: 6px;
+}
+
+.kanban-empty {
+  text-align: center;
+  padding: 36px 12px;
+  color: var(--text-muted);
+  font-size: 12px;
+  border: 1px dashed var(--border-strong);
+  border-radius: 6px;
+  margin: 8px 0;
+}
+
+/* Dashboard Styles */
+.dashboard-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 800px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.stat-card-custom {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.stat-card-custom .label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.stat-card-custom .value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 800px) {
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chart-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 320px;
+}
+
+.chart-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.recent-demands-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.recent-demands-header {
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
