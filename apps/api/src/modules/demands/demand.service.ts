@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@nestjs/common';
 import { Demand } from '@prisma/client';
 import { DemandRepository } from './demand.repository.js';
 import { CreateDemandInput, ListDemandsQuery, UpdateDemandInput, UpdateStatusInput } from './demand.schema.js';
-import { DemandItem, DemandStats } from './demand.types.js';
+import { DemandItem, DemandStats, ResponsibleStats } from './demand.types.js';
 import { NotFoundError } from '../../shared/errors/app-error.js';
 
 @Injectable()
