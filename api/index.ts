@@ -1,5 +1,4 @@
 import 'reflect-metadata';
-import { createNestApp } from '../apps/api/src/app.factory.js';
 
 let cachedServer: any = null;
 let initPromise: Promise<any> | null = null;
@@ -9,9 +8,12 @@ async function getServer() {
     return cachedServer;
   }
   if (!initPromise) {
-    initPromise = createNestApp().then(({ server }) => {
-      cachedServer = server;
-      return server;
+    // Usando import dinâmico para capturar erros de avaliação de módulo no catch do handler
+    initPromise = import('../apps/api/src/app.factory.js').then(({ createNestApp }) => {
+      return createNestApp().then(({ server }) => {
+        cachedServer = server;
+        return server;
+      });
     });
   }
   return initPromise;
@@ -40,9 +42,10 @@ export default async function handler(req: any, res: any) {
     if (!res.headersSent) {
       return res.status(500).json({
         statusCode: 500,
-        error: 'Serverless Handler Error',
+        error: 'Cold Boot / Serverless Error',
         message: err?.message || 'Erro interno na função serverless',
         stack: err?.stack,
+        details: err,
       });
     }
   }
