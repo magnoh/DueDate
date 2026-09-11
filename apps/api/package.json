@@ -2,6 +2,7 @@
   "name": "@orion/api",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "tsx watch src/main.ts",
     "start:dev": "tsx watch src/main.ts",
